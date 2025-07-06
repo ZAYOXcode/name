@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>اسم نورانی با بارون قلب</title>
+
+  <!-- فونت Pacifico برای نوشته نهایی -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: #000;
+      margin: 0;
+      font-family: Tahoma, sans-serif;
+      overflow: hidden;
+    }
+
+    #inputSection {
+      text-align: center;
+      margin-top: 20vh;
+    }
+
+    input, button {
+      padding: 0.6rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      background: linear-gradient(45deg, #a64aff, #ff79c6);
+      color: white;
+      cursor: pointer;
+    }
+
+    #orbitContainer {
+      display: none;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .orbit-name {
+      position: absolute;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #66ccff, #ff66cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform-origin: center center;
+    }
+
+    .orbit-1 { animation: orbit1 20s linear infinite; }
+    .orbit-2 { animation: orbit2 24s linear infinite; }
+    .orbit-3 { animation: orbit3 28s linear infinite; }
+    .orbit-4 { animation: orbit4 32s linear infinite; }
+    .orbit-5 { animation: orbit5 36s linear infinite; }
+    .orbit-6 { animation: orbit6 40s linear infinite; }
+
+    @keyframes orbit1 { from { transform: rotate(0deg) translateX(200px) rotate(0); } to { transform: rotate(360deg) translateX(200px) rotate(-360deg); } }
+    @keyframes orbit2 { from { transform: rotate(0deg) translateX(240px) rotate(0); } to { transform: rotate(-360deg) translateX(240px) rotate(360deg); } }
+    @keyframes orbit3 { from { transform: rotate(0deg) translateX(280px) rotate(0); } to { transform: rotate(360deg) translateX(280px) rotate(-360deg); } }
+    @keyframes orbit4 { from { transform: rotate(0deg) translateX(320px) rotate(0); } to { transform: rotate(-360deg) translateX(320px) rotate(360deg); } }
+    @keyframes orbit5 { from { transform: rotate(0deg) translateX(360px) rotate(0); } to { transform: rotate(360deg) translateX(360px) rotate(-360deg); } }
+    @keyframes orbit6 { from { transform: rotate(0deg) translateX(400px) rotate(0); } to { transform: rotate(-360deg) translateX(400px) rotate(360deg); } }
+
+    .center-name {
+      position: absolute;
+      top: 42%;
+      left: 47%;
+      transform: translate(-50%, -50%);
+      font-size: 4.2rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #a64aff, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px #ff00cc;
+      animation: glow 2s infinite alternate;
+      z-index: 10;
+    }
+
+    @keyframes glow {
+      0% { opacity: 0.7; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .final-msg {
+      font-size: 2.5rem;
+      font-family: 'Pacifico', cursive;
+      font-weight: normal;
+      background: linear-gradient(to right, #a64aff, #66ccff, #ff79c6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      opacity: 0;
+      animation: appear 3s ease-out forwards;
+      animation-delay: 5s;
+    }
+
+    @keyframes appear {
+      to { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .hearts-fall {
+      position: fixed;
+      top: -50px;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall 5s linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="inputSection">
+    <input type="text" id="nameInput" placeholder="اسمت رو وارد کن">
+    <button onclick="startShow()">نمایش ✨</button>
+  </div>
+
+  <div id="orbitContainer">
+    <div id="orbits"></div>
+    <div id="centerName" class="center-name"></div>
+    <div class="final-msg">YOU ARE FANTASTIC</div>
+  </div>
+
+  <div class="footer">zayox</div>
+
+  <script>
+    function createHeartsRain() {
+      const emojis = ["❤️", "💛", "💚", "💙", "💜", "🖤", "🤍", "💖", "💘", "💗"];
+      const colors = ["#ff4d6d", "#ffbe0b", "#00bbf9", "#c77dff", "#f72585", "#8338ec", "#06d6a0", "#fb5607"];
+
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "hearts-fall";
+        heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 2 + 1.5 + "rem";
+        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 200);
+    }
+
+    function startShow() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) return;
+
+      document.getElementById("inputSection").style.display = "none";
+      document.getElementById("orbitContainer").style.display = "block";
+      document.getElementById("centerName").textContent = name;
+
+      const orbits = document.getElementById("orbits");
+      orbits.innerHTML = "";
+
+      const orbitCounts = [6, 6, 6, 6, 6, 6];
+
+      orbitCounts.forEach((count, index) => {
+        const className = "orbit-name orbit-" + (index + 1);
+        for (let i = 0; i < count; i++) {
+          const angle = (360 / count) * i;
+          const el = document.createElement("div");
+          el.className = className;
+          el.innerText = name;
+          el.style.top = "50%";
+          el.style.left = "50%";
+          el.style.transform = `rotate(${angle}deg) translateX(${200 + index * 40}px) rotate(-${angle}deg)`;
+          orbits.appendChild(el);
+        }
+      });
+
+      createHeartsRain();
+    }
+  </script>
+</body>
+</html>
